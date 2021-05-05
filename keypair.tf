@@ -1,6 +1,8 @@
 provider "aws" {
   region     = "ap-south-1"
-  profile    = "fayazlinux"
+  access_key = "AKIARESMOZPX47YWULUD"
+  secret_key = "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"
+	
 }
 
 
