@@ -135,7 +135,7 @@ resource "null_resource" "nullremote2" {
    "sudo mkfs.ext4 /dev/xvdd",
    "sudo mount /dev/xvdd /var/www/html",
    "sudo rm -rf /var/www/html/*",
-   "sudo git clone https://github.com/teenabodhwani/Cloudfront-s3-Terraform.git   /var/www/html/"
+   "sudo git clone https://github.com/teenabodhwani/Cloudfront-Terraform.git   /var/www/html/"
          ]
    }
 }
@@ -150,7 +150,7 @@ resource "aws_s3_bucket" "kk-cst" {
  
 
   provisioner "local-exec" {
-        command     = "git clone clone https://github.com/teenabodhwani/Cloudfront-s3-Terraform.git server_img"
+        command     = "git clone clone https://github.com/teenabodhwani/Cloudfront-Terraform.git server_img"
     }
 
 
