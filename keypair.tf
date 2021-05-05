@@ -6,8 +6,8 @@ provider "aws" {
 }
 
 
-resource "aws_security_group" "fayaz_grp" {
-  name         = "fayaz_grp"
+resource "aws_security_group" "cst_grp" {
+  name         = "cst_grp"
   description  = "allow ssh and httpd"
  
   ingress {
@@ -31,7 +31,7 @@ resource "aws_security_group" "fayaz_grp" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "fayaz_sec_grp"
+    Name = "cst_sec_grp"
   }
 }
 
@@ -67,9 +67,9 @@ resource "aws_instance" "web" {
   ami           = "ami-005956c5f0f757d37"
   instance_type = "t2.micro"
   key_name = "${var.ssh_key_name}"
-  security_groups = [ "fayaz_grp" ] 
+  security_groups = [ "cst_grp" ]
   tags = {
-    Name = "fayazOS"
+    Name = "cstOS"
   }
 
 }
@@ -141,11 +141,11 @@ resource "null_resource" "nullremote2" {
 }
 
 
-resource "aws_s3_bucket" "kk-fayaz" {
+resource "aws_s3_bucket" "kk-cst" {
   depends_on = [ 
      aws_volume_attachment.ebs_att, 
       ] 
-  bucket = "kk-fayaz1"
+  bucket = "kk-cst1"
   acl = "public-read"
  
 
@@ -168,11 +168,11 @@ resource "aws_s3_bucket" "kk-fayaz" {
 
 resource "aws_s3_bucket_object" "object" {
    depends_on = [
-      aws_s3_bucket.kk-fayaz, 
+      aws_s3_bucket.kk-cst,
       ]
 
 
-  bucket = aws_s3_bucket.kk-fayaz.bucket
+  bucket = aws_s3_bucket.kk-cst.bucket
  
   key    = "Sample.jpg"
   source = "server_img/Sample.jpg"
@@ -184,7 +184,7 @@ resource "aws_s3_bucket_object" "object" {
 
 
 locals { 
-  s3_origin_id = "S3-${aws_s3_bucket.kk-fayaz.bucket}"
+  s3_origin_id = "S3-${aws_s3_bucket.kk-cst.bucket}"
 }
 
 
@@ -200,7 +200,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 resource "aws_cloudfront_distribution" "kklinux" {
   origin {
-  domain_name = "${aws_s3_bucket.kk-fayaz.bucket_regional_domain_name}"
+  domain_name = "${aws_s3_bucket.kk-cst.bucket_regional_domain_name}"
   origin_id = "${local.s3_origin_id}"
   
   s3_origin_config {
