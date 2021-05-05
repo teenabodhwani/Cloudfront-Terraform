@@ -150,7 +150,7 @@ resource "aws_s3_bucket" "kk-cst" {
  
 
   provisioner "local-exec" {
-        command     = "git clone clone https://github.com/teenabodhwani/Cloudfront-Terraform.git server_img"
+        command     = "git clone https://github.com/teenabodhwani/Cloudfront-Terraform.git server_img"
     }
 
 
